@@ -1,18 +1,16 @@
 ---
 home: true
-heroImage: /logo.png
-heroText: 一起LOL
-tagline: 一点寒芒先到 随后枪出如龙 
+heroImage: /code.jpg
+heroText: 学不动就回家养猪
+tagline: 劳动无害，忧愁伤身 
 actionText: 快速上手 →
-actionLink: /guide/
+actionLink: /study/
 features:
-- title: 简洁至上
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue驱动
-  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
-- title: 高性能
-  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
-footer: MIT Licensed | Copyright © 2018-present 你强哥
+- title: 学习
+  details: 饭可以一日不吃，觉可以一日不睡，书不可以一日不读。
+- title: 运动
+  details: 运动是一切生命的源泉。——(达·芬奇) 
+- title: 生活
+  details: 生活中只有一种英雄主义，那就是在认清生活真相之后依然热爱生活。
+footer: MIT Licensed | Copyright © 2022-present 谢文强的专属笔记
 ---
-
-## Getting Started

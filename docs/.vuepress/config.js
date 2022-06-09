@@ -1,35 +1,35 @@
 module.exports = {
   title: "笔记本",
   description: "Note book",
-  head: [["link", { rel: "icon", href: "/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/head.jpg" }]],
   base: "/",
   markdown: {
     lineNumbers: false,
   },
   themeConfig: {
     nav: [
-      { text: "指南", link: "/guide/install" },
-      { text: "配置", link: "/config/api" },
-      { text: "笔记", link: "/other/flutter-node" },
+      { text: "学习", link: "/study/flutter-node" },
+      { text: "运动", link: "/sport/api" },
+      { text: "生活", link: "/live/install" },
       { text: "Github", link: "https://github.com/jason-xiewenqiang" },
     ],
     sidebar: {
-      "/guide/": [
+      "/live/": [
         {
-          title: "指南",
-          children: ["/guide/install"],
+          title: "生活",
+          children: ["/live/install"],
         },
       ],
-      "/config/": [
+      "/sport/": [
         {
-          title: "配置",
-          children: ["/config/api", "/config/guide"],
+          title: "运动",
+          children: ["/sport/api", "/sport/guide"],
         },
       ],
-      "/other/": [
+      "/study/": [
         {
           title: "Flutter",
-          children: ["/other/flutter-node", "/other/node-js"],
+          children: ["/study/flutter-node", "/study/node-js"],
         },
       ]
     },
