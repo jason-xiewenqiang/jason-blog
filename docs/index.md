@@ -7,10 +7,10 @@ actionText: 快速上手 →
 actionLink: /study/
 features:
 - title: 学习
-  details: 饭可以一日不吃，觉可以一日不睡，书不可以一日不读。
+  details: 千里之行，始于足下。——(老子)
 - title: 运动
   details: 运动是一切生命的源泉。——(达·芬奇) 
 - title: 生活
-  details: 生活中只有一种英雄主义，那就是在认清生活真相之后依然热爱生活。
-footer: MIT Licensed | Copyright © 2022-present 谢文强的专属笔记
+  details: 热爱这个世界时，才算是真正活着。——(泰戈尔)
+footer: MIT Licensed | Copyright © 2022-present 专属笔记
 ---
