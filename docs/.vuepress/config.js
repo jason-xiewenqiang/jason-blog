@@ -28,7 +28,7 @@ module.exports = {
       ],
       "/study/": [
         {
-          title: "Flutter",
+          title: "学习",
           children: ["/study/flutter-note", "/study/node-js", "/study/vue", "/study/webpack"],
         },
       ]
