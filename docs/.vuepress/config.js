@@ -8,7 +8,7 @@ module.exports = {
   },
   themeConfig: {
     nav: [
-      { text: "学习", link: "/study/flutter-node" },
+      { text: "学习", link: "/study/flutter-note" },
       { text: "运动", link: "/sport/api" },
       { text: "生活", link: "/live/install" },
       { text: "Github", link: "https://github.com/jason-xiewenqiang" },
