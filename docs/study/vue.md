@@ -1,14 +1,16 @@
-# Vue-note
+# Vue
 
-## vue3 setup composition Api 的 Ts 类型声明
+## composition Api 的 Ts 类型声明
 
 ### defineProps & defineEmits
 
 ::: danger Tip
-    defineProps 或 defineEmits 只能是要么使用`运行时声明`，要么使用`类型声明`。同时使用两种声明方式会导致编译报错。
+    defineProps 或 defineEmits 
+    只能是要么使用`运行时声明`，要么使用`类型声明`。
+    同时使用两种声明方式会导致编译报错。
 :::
 
-#### 向下属性传递 :tada: :point_down: defineProps 
+#### 向下属性传递 :point_down: defineProps 
 
 1. 仅限类型的 defineProps 声明
 
@@ -58,7 +60,7 @@
     </script>
 ```
 
-#### 向上事件 :tada: :point_up_2: defineEmits
+#### 向上事件 :point_up_2: defineEmits
 
 > this.$emit('eventName','data')
 
@@ -79,7 +81,7 @@
 
 ```
 
-#### 对外暴露 :tada: :point_up_2: defineExpose
+#### 对外暴露 :point_up_2: defineExpose
 
 > 源码类型: const defineExpose: (exposed?: Record<string, any>) => void
 
@@ -106,7 +108,7 @@
 
 ```
 
-#### 依赖注入 :tada: :speech_balloon: Provide & Inject
+#### 依赖注入 :speech_balloon: Provide & Inject
 
 ```typescript
 
