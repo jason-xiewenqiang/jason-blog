@@ -27,3 +27,23 @@
     PUB_HOSTED_URL=https://pub.flutter-io.cn
     FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 :::
+
+## Dart 语言
+
+> 函数是一等公民
+
+### 可选参数
+
+``` dart
+
+    // main.dart
+    main() {
+        test()
+    }
+
+    typeof int fn(int num1, int num2)
+    void test(fn) {
+        fn(10,20)
+    }
+
+```

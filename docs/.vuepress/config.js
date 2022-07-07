@@ -29,7 +29,7 @@ module.exports = {
       "/study/": [
         {
           title: "Flutter",
-          children: ["/study/flutter-node", "/study/node-js"],
+          children: ["/study/flutter-note", "/study/node-js", "/study/vue", "/study/webpack"],
         },
       ]
     },
