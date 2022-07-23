@@ -27,3 +27,64 @@
     PUB_HOSTED_URL=https://pub.flutter-io.cn
     FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 :::
+
+## dart
+
+> 函数是一等公民
+
+``` dart
+
+    // 位置可选参数
+
+    // 命名可选参数
+
+```
+
+> 运算符
+
+1. ??= (::) 当原来的变量有值时，当前的操作不执行
+
+``` dart
+
+    var name = 'lisi';
+    name ??= 'lilei'; 
+    print(name);
+
+```
+
+2. ?? (::) 如果前面的数据有值  那么使用前面的。（相当于三目元算符）
+
+``` dart
+
+    var name = 'lisi';
+    var temp = name ?? 'lilei'; 
+    print(temp);
+
+```
+
+3.  ... 级联运算符
+
+``` dart
+
+   var p = Person()
+           ...eat()
+           ...say()
+
+```
+
+4. for循环
+
+``` dart
+
+   main (List<String> args) {
+       var names = ['a', 'b', 'c']
+       for (var i = 0; i < names.length; i++) {
+           print(names[i])
+       }
+
+        for (var i in names) {
+            print(names[i])
+        }
+   }
+
+```
