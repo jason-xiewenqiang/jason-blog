@@ -29,9 +29,16 @@ module.exports = {
       "/study/": [
         {
           title: "学习",
-          children: ["/study/flutter-note", "/study/node-js", "/study/vue", "/study/webpack"],
+          children: [
+            "/study/nodejs",
+            "/study/vue",
+            "/study/react",
+            "/study/webpack",
+            "/study/mysql",
+            "/study/mongodb",
+          ],
         },
-      ]
+      ],
     },
     sidebarDept: 2,
   },
