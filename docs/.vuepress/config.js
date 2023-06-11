@@ -31,8 +31,11 @@ module.exports = {
           title: "学习",
           children: [
             "/study/nodejs",
+            "/study/npm",
+            "/study/go",
             "/study/vue",
             "/study/react",
+            "/study/redux",
             "/study/webpack",
             "/study/mysql",
             "/study/mongodb",
