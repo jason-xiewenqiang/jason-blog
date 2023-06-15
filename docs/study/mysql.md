@@ -51,14 +51,60 @@
         ```
             mysqld -install
 
-            ## mysqld -remove 
+            ## mysqld -remove
         ```
+
 ### 进入 MySQL
+
     1. 启动 MySQL 服务
-        > net start mysql 
+        > net start mysql
     2. 登录
-        > mysql -u root -p 
+        > mysql -u root -p
     3. 设置密码
         > ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
     4. 停止服务
-        > net stop mysql 
+        > net stop mysql
+
+### Express 连接 Mysql
+
+    1. 生成 Express 项目
+    ```js
+        mkdir examples && cd example
+
+        express --no-view express-app
+
+        cd express-app && npm install
+
+        nodemon run start
+    ```
+
+    2. 安装 mysql 模块
+    ```js
+        npm install mysql
+    ```
+
+    3. 创建 sql 初始化文件
+        1. 创建 database
+        ```js
+            // 根目录下创建 database 文件夹
+            mkdir database
+
+            // 创建 db.config.js
+            const database = 'local' // 数据库名称
+            const config = {
+                host: '127.0.0.1',
+                port: 3306,
+                user: 'root',
+                password: 'root'
+            }
+
+            module.exports = {
+                database,
+                config
+            }
+        ```
+        2. 创建表初始化 SQL
+        ```js
+            name
+        ```
+    4. 
