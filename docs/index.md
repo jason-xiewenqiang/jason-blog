@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /code.jpg
-heroText: 学不动就回家养猪
+heroText: 吾日三省吾身
 tagline: 劳动无害，忧愁伤身 
 actionText: 快速上手 →
 actionLink: /study/

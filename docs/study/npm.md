@@ -1,4 +1,4 @@
-# package manager 包管理
+# Package manager
 
 > 从npm到pnpm的包管理历程
 
@@ -22,6 +22,7 @@
         NODE_HOME C:\Users\xxx\AppData\Roaming\nvm
         NODE_SYMLINK C:\Program Files\nodejs
     ```
+
 - 使用 nvm 管理 node 版本
     - 查看哪些 node 版本可以使用
     ```js
@@ -118,6 +119,7 @@
     ```
 
 ### nrm
+
 - npm registries manager
 - nrm can help you easy and fast switch between different npm registries, now include: npm, cnpm, taobao, nj(nodejitsu)
 - install
@@ -239,16 +241,17 @@ npm 由三个不同的组件组成：
     ```js
         npm init (-y) // 生成package.json
         npm -v // npm 版本信息
-        npm install <package_name> // 安装package
-        npm uninstall <package_name> // 卸载package
-        npm info <package_name> // 显示包信息
+        npm install package_name // 安装package
+        npm uninstall package_name // 卸载package
+        npm info package_name // 显示包信息
     ```
+
 - 全局命令
     ```js
-        npm install -g <package> // 全局安装
-        npm update -g <package> // 升级
+        npm install -g package // 全局安装
+        npm update -g package // 升级
         npm list -g --depth=0 // 全局安装的模块
-        npm uninstall -g <package>
+        npm uninstall -g package
         npm config get prefix // 获取全局安装包的所在地址,并且可见对应的cmd命令
         npm cache clean -f // 清除缓存
     ```
@@ -257,8 +260,17 @@ npm 由三个不同的组件组成：
 
 > 这是一个完整 npmjs.org 镜像，你可以用此代替官方版本(只读)，同步频率目前为 10分钟 一次以保证尽量与官方服务同步。[CNPM 是中国 npm 镜像的客户端](https://npmmirror.com/)
 
-- cnpm sync <package> 同步包
+- cnpm sync package 同步包
 - 其他命令 除了 publish 都是与 npm 相同
+
+#### npx命令
+
+> npx是一个工具，npm v5.2.0引入的一条命令（npx），一个npm包执行器，指在提高从npm注册表使用软件包时的体验。
+
+- 可以直接执行npm包中的可执行文件
+- 避免全局安装模块
+- 可以指定node版本、命令的版本，解决了不同项目使用不同版本的命令的问题
+- 执行GitHub源码(必须是项目模块：包含package.json与入口文件)
 
 #### package.json
 
@@ -273,25 +285,400 @@ npm 由三个不同的组件组成：
     > - 让构建更好地与其他开发者分享，重复使用
 
 3. 区分包与模块
+    - 这里的包指的是由 package.json 文件描述的文件或目录。 包必须包含 package.json 文件才能发布到 npm 注册表
+    - 模块：是 node_modules、src 目录下的任何文件或目录，可以通过 Node.js require() 功能加载
 
+4. 字段
+    - name | required: 包的名称，必须是小写和一个单词，并且可以包含连字符和下划线
+    - version | required: 必须采用 x.x.x 格式，遵循 [语义版本控制2.0](https://semver.org/lang/zh-CN/)
+    - description: 当前包描述信息，如果为空字符串，则会发布后引入readme 的第一行作为描述，便于搜索
+    - main: 可选字段， 指定了项目加载的入口文件，默认根目录下的index.js
+    - scripts: 一个由脚本命令组成的 hash 对象，他们在包不同的生命周期中被执行
+    - keywords: 字符串数组，便于用户搜索
+    - homepage: 项目的主页地址
+    - bugs: 项目问题反馈的Url或报告问题的邮箱地址
+    - license: 项目许可证，让使用者知道如何使用此项目,有何权限来使用我们的模块，以及使用该模块有限制等，常见的 MIT, Apache2.0，GPL等
+    - author,contributors：author一个person对象，Contributors表示person的数组，相当于一群person
+    - files：一个文件数组，描述了将软件包作为依赖项安装时要包括的条目；下载依赖包所包含的文件
+    - browser：要在客户端使用模块，则应使用browser字段来代替main字段
+    - bin：来指定各个内部命令对应的可执行文件的位置
+    - man：用来指定当前模块的man文档的位置
+    - directories：用来标识模块结构的方法，类似于commonjs包规范的介绍，想查看npm中的package.json，就可以看到doc、lib、man目录及位置
+    - repository：{ "type" : "git", "url" : "https://github.com/npm/XXX.git" }
+    - config：用于添加命令行的环境变量 { "port" : "8080" }
+    - dependencies：包都是程序所依赖的包,需要发布到生产环境的 --save
+        ```js
+            // 波浪号 ~ 
+            ~1.2.2 规则是安装时取 1.2.x x最大（新）的版本，但不大于1.3
 
+            // 插入号 ^
+            ^1.2.2 规则是安装时取 1.x.y 不低于 1.2.2，但不高于 2.0.0
 
+            // 最新版本
+            @latest
 
+        ```
+    - devDependencies：开发环境下的依赖 --save-dev
+    - peerDependencies：用来供插件指定其所需要的主工具的版本；从npm 3.0版开始，peerDependencies不再会默认安装了
+    - bundledDependencies： 是一个数组，指定发布时将定义的模块一起打包
+    - optionaldependencies： 如果出现包找不到或者安装失败时，但又不影响npm继续运行，可将该包放在optionalDependencies对象中。
+    - engines： 指明了该模块运行的平台，比如Node``的某个版本，或者npm的某个版本或者浏览器。
+    - os： 项目将运行在什么操作系统上
+    - cup： 项目将运行在什么cpu架构上
+    - private： 决定我们的项目是否会发布，如果设置为true,那么npm会拒绝发布
+    - publishConfig： 模块发布时生效，设置一些值的集合
+    - preferGlobal： 表示在不安装为全局时给予显示警告
 
-### 查询一个包
+#### 查询一个包
 
-### 安装一个包
+- 搜索包
+    [npmjs.com](https://www.npmjs.com/)
+- 搜索的逻辑包含4个维度：人气（被下载）、质量（测试、相关文件、稳定性）、维护（开发者对包维护）、最佳（前三组合分数）
+- 搜索结果
+    ![npm-search](/image.png)
 
-### 贡献一个包
+#### 贡献一个包
 
+[npm中文网](https://npm.nodejs.cn/)
 
+![官网](/image-3.png)
 
-### npm 版本历史&问题
+##### 准备包（公有包-私有包是收费的）
+
+- mkdir xro-npm-test
+- cd xbro-npm-test
+- npm init -y
+- wirte one function
+- 修改package.json
+
+##### 登录npm
+
+- 检查当前的 nrm 是哪一个：需要切换至 npm 镜像
+- npm login
+- 按照提示：输入账号、密码、邮箱、一次性验证码（从你的账号邮箱里查看）
+
+    ![npm login](/image-1.png)
+
+##### 执行publish
+
+- 执行成功后
+    ![published](/image-2.png)
+- 检验能否安装已发布的包
+    1. 查看 npmjs.com 上是否有你刚刚发布的包
+    2. 找一个项目进行安装验证
+- 发布带 scope 的包
+    - 在 npmjs.com 用户界面创建组织
+    ![组织](/image-4.png)
+    - 发布时，包名（package.json [name]）使用 ·@xxx/· 作为前缀
+    ![发布](/image-5.png)
 
 ## yarn
 
+[安全、稳定、reproducible projects](https://www.yarnpkg.cn/)
+
+> Yarn 是一个软件包管理器，还可以作为项目管理工具。无论你是小型项目还是大型单体仓库（monorepos），无论是业余爱好者还是企业用户，Yarn 都能满足你的需求。
+
+- 速度超快
+    <p>Yarn 缓存了每个下载过的包，所以再次使用时无需重复下载。 同时利用并行下载以最大化资源利用率，因此安装速度更快。</p>
+
+- 超级安全
+    <p>在执行代码之前，Yarn 会通过算法校验每个安装包的完整性。</p>
+
+- 超级可靠
+    <p>使用详细、简洁的锁文件格式和明确的安装算法，Yarn 能够保证在不同系统上无差异的工作。</p>
+
+    ![yarn](/image6.png)
+
 ### yarn基本使用
+
+- 初始化项目
+    ```js
+        yarn init
+    ```
+- 添加依赖包
+    ```js
+        yarn add package
+        yarn add package@version
+        yarn add package@tag
+    ```
+- 添加依赖包到不同依赖类别
+    ```js
+        yarn add package --save-dev // default
+        yarn add package --dev
+        yarn add package --peer
+        yarn add package --optional
+    ```
+- 升级依赖包
+    ```js
+        yarn upgrade package
+        yarn upgrade package@version
+        yarn upgrade package@tag
+    ```
+- 移除依赖
+    ```js
+        yarn remove package
+    ```
+
+### why yarn
+
+> 为什么要推出 yarn
+
+- 早期 npm 的问题
+    1. 速度慢：npm 按照队列执行安装每个 package，只有当前 package 安装完成之后，才会进行后面的安装。[yarn 并行执行]
+    2. 同一个项目，npm 安装的时候无法保持一致性
+        ```js
+            "5.0.3",  //安装指定的5.0.3版本
+            "~5.0.3", //安装5.0.X中的最新版本
+            "^5.0.3"  //安装5.X.X中的最新版本
+        ```
+    3. npm 安装的时候，一个包抛出错误，npm 会继续下载安装包，而且因为 npm 会把所有的日志输出到终端，有关错误包的错误信息就会淹没在 npm 打印的警告中，你甚至不会发现错误的产生
+
+- yarn 的优势
+    - 离线模式（重要）：之前已经安装过一个软件包，再次安装时就不用再从网络下载，npm 饱受诟病的一点就是，每次安装依赖，都需要从网络下载一大堆东西，而且是全部重新下载
+    - 依赖关系确定性（重要）lock文件的作用，当然 npm 后期优化版本也有lock的特性了
+    - 扁平模式（重要）
+    ```js
+        node_modules
+            ├── A
+            ├── somelib 1.7.x
+            ├── B
+            │   └── node_modules
+            │        └── somelib 1.5.x
+            └── C
+                └── node_modules
+                        └── somelib 1.5.x
+    ```
 
 ## pnpm
 
-### pnpm 基本使用
+### pnpm 简介
+
+> 快速的，节省磁盘空间的包管理工具优势
+
+[PNPM](https://pnpm.io/zh/)
+
+- 快速
+    <p>pnpm 比其他包管理器快 2 倍</p>
+- 高效
+    <p>node_modules 中的文件为复制或链接自特定的内容寻址存储库</p>
+- 支持 monorepos    
+    <p>pnpm 内置支持单仓多包</p>
+- 严格    
+    <p>pnpm 默认创建了一个非平铺的 node_modules，因此代码无法访问任意包</p>
+
+### pnpm 初衷
+
+- 节省磁盘空间
+    <p>使用 npm 时，依赖每次被不同的项目使用，都会重复安装一次。  而在使用 pnpm 时，依赖会被存储在内容可寻址的存储中</p>
+    <p>1. 如果你用到了某依赖项的不同版本，只会将不同版本间有差异的文件添加到仓库。 例如，如果某个包有100个文件，而它的新版本只改变了其中1个文件。那么 pnpm update 时只会向存储中心额外添加1个新文件，而不会因为仅仅一个文件的改变复制整新版本包的内容。</p>
+    <p>2. 所有文件都会存储在硬盘上的某一位置。 当软件包被被安装时，包里的文件会硬链接到这一位置，而不会占用额外的磁盘空间。 这允许你跨项目地共享同一版本的依赖。</p>
+
+- 提高安装速度
+    <p>pnpm 分三个阶段执行安装</p>
+    <p>1. 依赖解析。 仓库中没有的依赖都被识别并获取到仓库</p>
+    <p>2. 目录结构计算。 node_modules 目录结构是根据依赖计算出来的。</p>
+    <p>3. 链接依赖项。 所有以前安装过的依赖项都会直接从仓库中获取并链接到 node_modules</p>
+
+- 创建一个非扁平的 node_modules 目录
+    <p>使用 npm 或 Yarn Classic 安装依赖项时，所有的包都被提升到模块目录的根目录。 这样就导致了一个问题，源码可以直接访问和修改依赖，而不是作为只读的项目依赖。</p>
+### pnpm 安装
+
+- 使用 npm 安装
+    ```js
+        npm install -g pnpm
+    ```
+- 其他安装请自行查阅官网安装教程 [installtion](https://pnpm.io/zh/installation)
+
+### pnpm 命令（重要）
+
+#### 依赖管理
+
+一、 pnpm add [package]
+
+- 安装至不同依赖类型
+    ```js
+        pnpm add package        // dependencies 
+        pnpm add package -D     // devDependencies 
+        pnpm add package -O     // optionalDependencies 
+        pnpm add package -g     // Install package globally 
+        pnpm add package@next   // next 标签
+        pnpm add package@3.0.0  // @3.0.0 标签
+    ```
+- 不同包地址
+    1. from npm：pnpm 默认安装会从 npm  registry 安装最新的 package
+    2. 从 worksapce 中安装：我们配置了workspace时，可以进行安装
+    3. 从本地安装：源码文件、本地目录
+    4. 从远端安装tar包：一个可以访问的url
+    5. 从git中安装：pnpm add [git remote url]，通过 git clone
+- 更多信息请点击 [Link](https://pnpm.io/zh/cli/add)
+
+二、 pnpm install
+
+- 离线下载
+    ```js
+        pnpm i --offline    // 仅从 store 中离线下载
+    ```
+- 其他命令
+    ```js
+        pnpm i --frozen-lockfile    // 不更新 pnpm-lock.yaml
+        pnpm i --lockfile-only      // 只更新 pnpm-lock.yaml
+    ```
+- 更多配置信息 [Link](https://pnpm.io/zh/cli/install) 
+
+三、 pnpm update (up)
+
+- 根据指定的范围更新软件包的最新版本
+    ```js
+        pnpm up             // 遵循 package.json 指定的范围更新所有的依赖项
+        pnpm up --latest    // 遵循 package.json 指定的范围更新所有的依赖项
+        pnpm up foo@2       // 将 foo 更新到 v2 上的最新版本
+        pnpm up "@babel/*"  // 更新 @babel 范围内的所有依赖项
+    ```
+- 使用 Pattern 来更新特定的依赖项
+    ```js
+        pnpm update "\!webpack"  // 更新所有依赖，排除 weebpack
+        pnpm update "@babel/*" "\!@babel/core"  // 更新babel，排除 core
+    ```
+- 更多配置信息 [Link](https://pnpm.io/zh/cli/update)
+
+四、 pnpm list (ls)
+
+- 此命令会以一个树形结构输出所有的已安装package的版本及其依赖
+
+## PK
+
+### timeline
+
+    ```bash
+        ## 工具发布时间线
+        History
+            |
+            |--- 2010年1月 npm @0.0.1 发布
+            |
+            |--- 2013年12月 cnpm @0.0.1 发布
+            |
+            |--- 2015年6月 npm @3 发布 （node_modulse扁平化）
+            |
+            |--- 2016年8月 pnpm @0.1.0 发布 （下载速度快、通过连接方式公用文件）
+            |
+            |--- 2016年10月 yarn 首版发布 (支持离线安装、yarn.lock、优化加载速度，同步下载、安装失败自动重启)
+            |--- 同期 npm @4 发布 （npm-shrinkwrap.json文件确定依赖）
+            |
+            |--- 2017年5月 npm @5 发布 （支持离线安装、package.lock.json兼容 npm-shrinkwrap.json）
+            |
+            |--- 2017年7月 npm @5.2 发布，同时 npx 诞生
+            |
+            |--- 2018年5月 npm @6 发布，<npm init pkg>  
+            |
+            |--- 2020年 yarn@2 和 npm @7 发布
+            |
+            |--- 2021年 yarn@3 发布
+    ```
+
+### npm/yarn是如何管理node_modules
+
+- npm@3 之前 node_modules​结构可以说是整洁​、可预测的
+
+    ```js
+        node_modules 
+            └─ 依赖A 
+                ├─ index.js 
+                ├─ package.json 
+                └─ node_modules 
+                    └─ 依赖B 
+                    ├─ index.js 
+                    └─ package.json
+            └─ 依赖C 
+                ├─ index.js 
+                ├─ package.json 
+                └─ node_modules 
+                    └─ 依赖B 
+                        ├─ index.js 
+                        └─ package.json
+                        └─ node_modules 
+                            └─ 依赖D 
+                                ├─ index.js 
+                                ├─ package.json 
+                                └─ node_modules 
+                                    └─ 依赖E 
+                                        ├─ index.js 
+                                        └─ package.json
+    ```
+    - 依赖包重复安装：依赖A与依赖C同时引用了依赖B，此时的依赖B会被下载两次
+    - 依赖层级过多：C -> B -> D -> E，一个依赖地狱，不利于维护，（window下文件查找路径最大限制）
+    - 模块实例无法共享
+
+- npm@3 与 yarn
+    ```js
+        node_modules 
+            └─ 依赖A  
+                ├─ index.js 
+                ├─ package.json 
+                └─ node_modules 
+            └─ 依赖C   
+                ├─ index.js 
+                ├─ package.json 
+                └─ node_modules 
+            └─ 依赖B 
+                ├─ index.js 
+                ├─ package.json 
+                └─ node_modules
+    ```
+    - 依赖结构的不确定性(lock文件产生)：A与C都依赖B，但是依赖了B不同版本，具体哪一个版本被提升使用，取决于安装速度，出现不确定性，解决是整了一个lock文件
+    - 扁平化算法的复杂度增加
+    - 项目中仍然可以非法访问没有声明过的依赖包(幽灵依赖：项目中使用了一些 没有被定义在其 package.json 文件中 的 包。)
+        - 不兼容的版本
+        - 丢失依赖
+        <p>NodeJS 的 require() 函数能够在依赖目录找到它们，因为 require() 在查找文件夹时 根本不会受 package.json 文件 影响。这可能有点反直觉，但是跑起来没啥问题。也许这算是一个功能而不是 bug？</p>
+    ![幽灵安全](/image12.png)
+
+
+### 比较
+
+- npm 安装包流程
+    - resolving：首先他们会解析依赖树，决定要fetch哪些安装包。
+    - fetching：安装去fetch依赖的tar包。这个阶段可以同时下载多个，来增加速度。
+    - wrting：然后解压包，根据文件构建出真正的依赖树，这个阶段需要大量文件IO操作。
+
+- pnpm 
+    - resolving：解析依赖树，目录结构计算，获取 store 中没有记录的包
+    - fetching
+    - linking: 建立软链
+
+- 一份来自 pnpm 官网的比较图
+
+![比较图](/image7.png)
+
+![install](/image8.png)
+
+![compare](/image9.png)
+
+- 其他比较
+
+![pnpm](/image10.png)
+
+![yarn](/image11.png)
+
+## 总结
+
+三者相同点：管理和安装包的工具
+
+- yarn 出现较早期 npm
+    - npm 早期：不支持离线模式
+    - npm 早期：树形结构的依赖
+    - npm 早期：依赖安装不确定性
+    - npm 早期：项目版本不一致问题等
+    - yarn 解决：校验其完整性
+    - yarn 解决：并行执行包
+    - yarn 解决：已经安装的包保存进缓存目录
+    - yarn 解决：实现版本固化，lock文件
+    - yarn 解决：安装信息简化输出
+
+- pnpm 与 npm&yarn
+    - 包安装速度极快
+    - 高效的使用磁盘空间： 将包存储在同一文件夹中（content-addressable store），只要当你在同一OS的同一个用户在下再次安装时就只需要创建一个硬链接
+    - 安全性高: 解决幽灵依赖（依赖管理的方式也很巧妙地规避了非法访问依赖的问题，也就是只要一个包未在 package.json 中声明依赖，那么在项目中是无法访问的）
+
+
+> 前端未来包管理工具：pnpm
+
