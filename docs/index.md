@@ -12,5 +12,5 @@ features:
   details: 运动是一切生命的源泉。(达·芬奇) 
 - title: 生活
   details: 热爱这个世界时，才算是真正活着。(泰戈尔)
-footer: MIT Licensed | Copyright © 2022-present 专属笔记
+footer: MIT Licensed | Copyright © 2023-present 专属笔记
 ---
